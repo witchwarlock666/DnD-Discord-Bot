@@ -12,7 +12,7 @@ from pydub.playback import play
 
 TOKEN = open("token.txt","r").read()
 
-GUILD = "rola playdoh gayme"
+GUILD = open("guild.txt","r").read()
 
 client = discord.Client()
 
