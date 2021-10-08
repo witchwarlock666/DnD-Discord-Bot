@@ -85,6 +85,18 @@ davi"
     nomes_format = "Nomes\n>>> {}".format(nomes_text)
     await ctx.send(nomes_format)
 
+@bot.command(name="musicas")
+async def musicas(ctx):
+    lista_musicas = "batalha\n\
+ambiente\n\
+suspense\n\
+taverna\n\
+epico\n\
+triste\n\
+boss"
+    lista_format = "Musicas\n>>> {}".format(lista_musicas)
+    await ctx.send(lista_format)
+
 @bot.command(name="lista_armas")
 async def lista_armas(ctx):
     lista_text = "adaga\n\
@@ -672,7 +684,7 @@ boss = ["https://www.youtube.com/watch?v=Owq_6b7q-eg&t=163s", "https://www.youtu
 ]
 
 ambiente = ["https://www.youtube.com/watch?v=LUO5qhpD2pA", "https://www.youtube.com/watch?v=nRe3xFeyhVY",
-"https://www.youtube.com/watch?v=uOji0f5xyrg", "https://www.youtube.com/watch?v=-Eu28EjeLu0",
+"https://www.youtube.com/watch?v=-Eu28EjeLu0",
 "https://www.patreon.com/posts/new-community-in-49470501"
 ]
 
