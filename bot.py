@@ -2,7 +2,6 @@ import os
 import discord
 import asyncio
 import random
-from mysql.connector import connection, cursor
 import youtube_dl
 import time
 from discord.ext import commands, tasks
@@ -17,7 +16,7 @@ GUILD = open("guild.txt","r").read()
 client = discord.Client()
 
 bot = commands.Bot(
-    command_prefix="#",
+    command_prefix="!",
     help_command=None 
 )
 
@@ -265,6 +264,7 @@ async def metralhadora(ctx, nome_m: str, forca: int, mod: int, pos: int):
 
 @bot.command(name="roll")
 async def roll(ctx, dices: str):
+    dices = dices.replace("-", "+-")
     l_dices = dices.split("+")
     values = []
     total = 0
@@ -275,6 +275,11 @@ async def roll(ctx, dices: str):
             number = int(x.split("d")[0])
             sides = int(x.split("d")[1])
             for i in range(number):
+                author = str(ctx.message.author)
+                # if author == "h3bc1#0120":
+                #     dice_result = sides
+                #     values.append(dice_result)
+                # else:
                 dice_result = random.randrange(1, sides + 1)
                 values.append(dice_result)
                 
@@ -292,6 +297,43 @@ async def roll(ctx, dices: str):
         )
         
     )
+
+@bot.command(name="r")
+async def r(ctx, dices: str):
+    dices = dices.replace("-", "+-")
+    l_dices = dices.split("+")
+    values = []
+    total = 0
+    valueString = ""
+
+    for x in l_dices:
+        if "d" in x:
+            number = int(x.split("d")[0])
+            sides = int(x.split("d")[1])
+            for i in range(number):
+                author = str(ctx.message.author)
+                # if author == "MichelFelpessV2#8355":
+                #     dice_result = sides
+                #     values.append(dice_result)
+                # else:
+                dice_result = random.randrange(1, sides + 1)
+                values.append(dice_result)
+                
+                if valueString == '':
+                    valueString += str(dice_result)
+                else:
+                    valueString += ', ' + str(dice_result)
+        else:
+            total += int(x)
+    total += sum(values)
+    await ctx.send(
+        embed=discord.Embed(
+            title=dices,
+            description=ctx.message.author.mention + "\n:VALORES:\n" + valueString + "\n:RESULTADO:\n" + str(total)
+        )
+        
+    )
+
 
 @bot.command(name="vant")
 async def vant(ctx, dados: int, mod: int):
