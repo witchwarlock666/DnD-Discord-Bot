@@ -62,6 +62,42 @@ async def on_ready():
     print(f"{bot.user.name} has connected to Discord")
     print(discord.__version__)
 
+@bot.event
+async def on_message(message: discord.Message):
+    message = message.replace("-", "+-")
+    l_dices = message.split("+")
+    values = []
+    total = 0
+    valueString = ""
+
+    for x in l_dices:
+        if "d" in x:
+            number = int(x.split("d")[0])
+            sides = int(x.split("d")[1])
+            for i in range(number):
+                author = str(message.author)
+                # if author == "h3bc1#0120":
+                #     dice_result = sides
+                #     values.append(dice_result)
+                # else:
+                dice_result = random.randrange(1, sides + 1)
+                values.append(dice_result)
+                
+                if valueString == '':
+                    valueString += str(dice_result)
+                else:
+                    valueString += ', ' + str(dice_result)
+        else:
+            total += int(x)
+    total += sum(values)
+    await message.channel.send(
+        embed=discord.Embed(
+            title=message,
+            description=message.author.mention + "\n:VALORES:\n" + valueString + "\n:RESULTADO:\n" + str(total)
+        )
+        
+    )
+
 @bot.command(name="help")
 async def help(ctx):
     help_text = "m: Nome da Arma / Força + proficiência / mod de ataque / Posicionamento. Separados por espaço (Digite #help_m para mais informações)\n\n\
